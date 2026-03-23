@@ -99,10 +99,10 @@ if (!producto) return Astro.redirect('/tienda');
 
   <!-- PRODUCTO -->
   <section class="py-12">
-    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-start">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
       
       <!-- IMAGEN -->
-      <div class="bg-[#f0d9c8] rounded-3xl h-96 flex items-center justify-center text-9xl sticky top-24">
+      <div class="bg-[#f0d9c8] rounded-3xl h-72 md:h-96 flex items-center justify-center text-7xl md:text-9xl md:sticky md:top-24">
         {producto.emoji}
       </div>
 

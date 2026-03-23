@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-
 const { title, description } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -15,20 +14,75 @@ const { title, description } = Astro.props;
   </head>
   <body class="bg-[#fdf8f5] text-[#2c1810] font-lato">
 
-    <!-- HEADER MÓVIL -->
     <header class="fixed top-0 w-full bg-[#fdf8f5]/95 backdrop-blur-sm z-50 border-b border-[#e8d5c4]">
       <div class="px-4 py-3 flex items-center justify-between">
         <a href="/" class="font-playfair text-xl font-semibold text-[#8b4513]">Nuditos 🌸</a>
         <div class="flex items-center gap-3">
-          <a href="/tienda" class="bg-[#8b4513] text-white px-4 py-1.5 rounded-full text-xs font-semibold">
-            Tienda
-          </a>
+          <a href="/tienda" class="bg-[#8b4513] text-white px-4 py-1.5 rounded-full text-xs font-semibold">Tienda</a>
+          <button onclick="toggleMenu()" class="p-2 flex flex-col gap-1.5">
+            <span class="w-5 h-0.5 bg-[#2c1810] block"></span>
+            <span class="w-5 h-0.5 bg-[#2c1810] block"></span>
+            <span class="w-5 h-0.5 bg-[#2c1810] block"></span>
+          </button>
         </div>
+      </div>
+      <div id="menu-mobile" class="hidden bg-[#fdf8f5] border-t border-[#e8d5c4]">
+        <nav class="px-4 py-2 flex flex-col">
+          <a href="/" class="py-3 border-b border-[#e8d5c4] text-sm font-semibold" onclick="toggleMenu()">🏠 Inicio</a>
+          <a href="/tienda" class="py-3 border-b border-[#e8d5c4] text-sm font-semibold" onclick="toggleMenu()">🌸 Tienda</a>
+          <a href="/blog" class="py-3 border-b border-[#e8d5c4] text-sm font-semibold" onclick="toggleMenu()">📝 Blog</a>
+          <a href="/preguntas-frecuentes" class="py-3 border-b border-[#e8d5c4] text-sm font-semibold" onclick="toggleMenu()">❓ FAQ</a>
+          <a href="/sobre-nosotros" class="py-3 border-b border-[#e8d5c4] text-sm font-semibold" onclick="toggleMenu()">💜 Sobre mí</a>
+          <a href="/contacto" class="py-3 text-sm font-semibold" onclick="toggleMenu()">✉️ Contacto</a>
+          <a href="https://wa.me/573000000000" target="_blank" class="mt-3 mb-2 bg-[#25D366] text-white py-3 rounded-full text-sm font-semibold text-center">
+            📱 WhatsApp
+          </a>
+        </nav>
       </div>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <slot />
+    <main><slot /></main>
+
+    <footer class="bg-[#2c1810] text-[#e8d5c4] pt-10 pb-6">
+      <div class="px-4">
+        <p class="font-playfair text-2xl mb-1 text-center">Nuditos</p>
+        <p class="text-xs opacity-60 text-center mb-6">Flores tejidas a crochet · Hecho con amor en Colombia 🇨🇴</p>
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-60 mb-3">Páginas</p>
+            <ul class="space-y-2 text-sm opacity-80">
+              <li><a href="/tienda">Tienda</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/preguntas-frecuentes">FAQ</a></li>
+              <li><a href="/sobre-nosotros">Sobre mí</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-60 mb-3">Contacto</p>
+            <ul class="space-y-2 text-sm opacity-80">
+              <li>📱 WhatsApp</li>
+              <li>📍 Villavicencio</li>
+              <li>🇨🇴 Todo Colombia</li>
+            </ul>
+          </div>
+        </div>
+        <a href="https://wa.me/573000000000" target="_blank" class="block bg-[#25D366] text-white py-3 rounded-full text-sm font-semibold text-center mb-6">
+          📱 Contáctanos por WhatsApp
+        </a>
+        <p class="text-xs opacity-40 text-center">© 2025 Nuditos. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <a href="https://wa.me/573000000000" target="_blank" class="fixed bottom-6 right-4 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg z-50">
+      📱
+    </a>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById('menu-mobile')?.classList.toggle('hidden');
+      }
+      (window as any).toggleMenu = toggleMenu;
+    </script>
 
   </body>
 </html>
