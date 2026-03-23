@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const productos = [
+  {
+    nombre: "Ramo de rosas rojas",
+    precio: 85000,
+    descripcion: "12 rosas tejidas a crochet, perfectas para San Valentín o aniversarios.",
+    descripcionLarga: "Nuestro ramo de rosas rojas es una obra de arte tejida a mano, pétalo por pétalo, con hilos de alta calidad que mantienen su color y forma para siempre. A diferencia de las flores naturales, este ramo nunca se marchitará ni perderá su belleza. Incluye 12 rosas perfectamente elaboradas, ideal para regalar en San Valentín, aniversarios o cualquier ocasión especial.",
+    emoji: "🌹",
+    slug: "ramo-rosas-rojas",
+    tiempo: "3-5 días hábiles",
+    materiales: "Hilo acrílico premium, alambre floral, cinta decorativa"
+  },
+  {
+    nombre: "Ramo de girasoles",
+    precio: 75000,
+    descripcion: "Girasoles amarillos tejidos a mano, ideales para alegrar cualquier espacio.",
+    descripcionLarga: "Los girasoles simbolizan alegría y positividad. Nuestro ramo de girasoles tejidos a crochet captura perfectamente esa energía en cada pétalo amarillo brillante. Tejidos a mano con hilos de alta calidad, estos girasoles son perfectos para decorar el hogar o regalar a alguien especial que necesite un poco de sol en su vida.",
+    emoji: "🌻",
+    slug: "ramo-girasoles",
+    tiempo: "3-5 días hábiles",
+    materiales: "Hilo acrílico premium, alambre floral, cinta decorativa"
+  },
+  {
+    nombre: "Ramo de tulipanes",
+    precio: 90000,
+    descripcion: "Tulipanes en tonos pastel, elegantes y delicados. Un regalo único.",
+    descripcionLarga: "Los tulipanes tejidos a crochet en tonos pastel son la definición de la elegancia delicada. Cada tulipán es elaborado a mano con hilos suaves que imitan perfectamente la textura de las flores reales. Este ramo es ideal para regalar en ocasiones especiales como cumpleaños, graduaciones o simplemente para demostrar amor.",
+    emoji: "🌷",
+    slug: "ramo-tulipanes",
+    tiempo: "3-5 días hábiles",
+    materiales: "Hilo acrílico premium, alambre floral, cinta decorativa"
+  },
+  {
+    nombre: "Ramo mixto primaveral",
+    precio: 110000,
+    descripcion: "Mezcla de flores de temporada tejidas a crochet con hilos de colores.",
+    descripcionLarga: "Nuestro ramo mixto primaveral es una explosión de color y textura. Combina diferentes tipos de flores tejidas a crochet en una armonía perfecta de colores. Cada ramo es único porque las combinaciones de flores y colores varían, haciendo de este un regalo verdaderamente especial y personalizado.",
+    emoji: "💐",
+    slug: "ramo-mixto-primaveral",
+    tiempo: "5-7 días hábiles",
+    materiales: "Hilos acrílicos multicolor premium, alambre floral, cinta decorativa"
+  },
+  {
+    nombre: "Ramo de margaritas",
+    precio: 65000,
+    descripcion: "Margaritas blancas y amarillas, frescas y alegres. Perfectas para regalar.",
+    descripcionLarga: "Las margaritas tejidas a crochet transmiten frescura y alegría con su diseño clásico de pétalos blancos y centro amarillo. Son el regalo perfecto para personas que aprecian la simplicidad y la belleza natural. Tejidas a mano con hilos de alta calidad, estas margaritas mantendrán su frescura para siempre.",
+    emoji: "🌼",
+    slug: "ramo-margaritas",
+    tiempo: "3-5 días hábiles",
+    materiales: "Hilo acrílico premium, alambre floral, cinta decorativa"
+  },
+  {
+    nombre: "Ramo romántico premium",
+    precio: 145000,
+    descripcion: "Nuestro ramo más especial: rosas, peonías y lavanda tejidas con hilo premium.",
+    descripcionLarga: "El Ramo Romántico Premium es nuestra creación más especial y elaborada. Combina rosas, peonías y lavanda tejidas con nuestros hilos más finos y suaves. Cada flor requiere horas de trabajo artesanal para lograr el nivel de detalle que lo caracteriza. Es el regalo definitivo para momentos que merecen lo mejor.",
+    emoji: "🌸",
+    slug: "ramo-romantico-premium",
+    tiempo: "7-10 días hábiles",
+    materiales: "Hilo premium importado, alambre floral reforzado, cinta de seda, caja de regalo incluida"
+  },
+];
+export async function getStaticPaths() {
+  const productos = [
+    { slug: "ramo-rosas-rojas" },
+    { slug: "ramo-girasoles" },
+    { slug: "ramo-tulipanes" },
+    { slug: "ramo-mixto-primaveral" },
+    { slug: "ramo-margaritas" },
+    { slug: "ramo-romantico-premium" },
+  ];
+  return productos.map(p => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const producto = productos.find(p => p.slug === slug);
+
+if (!producto) return Astro.redirect('/tienda');
+---
+
+<Layout 
+  title={`${producto.nombre} — Nuditos | Flores tejidas a crochet`}
+  description={producto.descripcion}
+>
+
+  <!-- BREADCRUMB -->
+  <section class="pt-28 pb-4">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="text-sm text-[#6b4c3b]">
+        <a href="/" class="hover:text-[#8b4513]">Inicio</a> → 
+        <a href="/tienda" class="hover:text-[#8b4513]"> Tienda</a> → 
+        <span class="text-[#8b4513]"> {producto.nombre}</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- PRODUCTO -->
+  <section class="py-12">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-start">
+      
+      <!-- IMAGEN -->
+      <div class="bg-[#f0d9c8] rounded-3xl h-96 flex items-center justify-center text-9xl sticky top-24">
+        {producto.emoji}
+      </div>
+
+      <!-- INFO -->
+      <div>
+        <h1 class="font-playfair text-4xl mb-3">{producto.nombre}</h1>
+        <p class="text-3xl font-semibold text-[#8b4513] mb-6">
+          ${producto.precio.toLocaleString('es-CO')}
+        </p>
+        <p class="text-[#6b4c3b] leading-relaxed mb-8">{producto.descripcionLarga}</p>
+
+        <!-- DETALLES -->
+        <div class="bg-white rounded-2xl p-6 border border-[#e8d5c4] mb-8">
+          <div class="flex gap-4 mb-4">
+            <span class="text-2xl">⏱️</span>
+            <div>
+              <p class="font-semibold text-sm">Tiempo de entrega</p>
+              <p class="text-[#6b4c3b] text-sm">{producto.tiempo}</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="text-2xl">🧶</span>
+            <div>
+              <p class="font-semibold text-sm">Materiales</p>
+              <p class="text-[#6b4c3b] text-sm">{producto.materiales}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="flex flex-col gap-4">
+          <a 
+            href={`https://wa.me/573000000000?text=Hola! Me interesa el ${producto.nombre} por $${producto.precio.toLocaleString('es-CO')}`}
+            target="_blank"
+            class="bg-[#25D366] text-white px-8 py-4 rounded-full font-semibold text-center hover:bg-[#1da851] transition-colors flex items-center justify-center gap-2"
+          >
+            📱 Pedir por WhatsApp
+          </a>
+          <a href="/tienda" class="border border-[#8b4513] text-[#8b4513] px-8 py-4 rounded-full font-semibold text-center hover:bg-[#8b4513] hover:text-white transition-colors">
+            ← Ver más productos
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
